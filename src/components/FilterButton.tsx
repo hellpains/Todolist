@@ -7,14 +7,15 @@ type FilterButtonType = {
 }
 export const FilterButton: FC<FilterButtonType> = ({changeFilter}) => {
 
-    const onClickFilterAllHandler = () => changeFilter('all')
-    const onClickFilterActiveHandler = () => changeFilter('active')
-    const onClickFilterCompletedHandler = () => changeFilter('completed')
+    const onClickFilterHandler = (value: FilterType) => {
+        changeFilter(value)
+    }
+
     return (
         <div>
-            <Button callback={onClickFilterAllHandler} name={'All'}/>
-            <Button callback={onClickFilterActiveHandler} name={'Active'}/>
-            <Button callback={onClickFilterCompletedHandler} name={'Completed'}/>
+            <Button callback={() => onClickFilterHandler('all')} name={'All'}/>
+            <Button callback={() => onClickFilterHandler('active')} name={'Active'}/>
+            <Button callback={() => onClickFilterHandler('completed')} name={'Completed'}/>
         </div>
     );
 };
