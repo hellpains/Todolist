@@ -26,7 +26,10 @@ function App() {
         setFilter(value)
     }
 
-
+    const addTask = (title: string) => {
+        let newTask = {id: v1(), title, isDone: false}
+        setTasks([newTask, ...tasks])
+    }
     let filteredTask = tasks
     if (filter === 'active') {
         filteredTask = tasks.filter(t => t.isDone === false)
@@ -41,6 +44,7 @@ function App() {
                 tasks={filteredTask}
                 removeTask={removeTask}
                 changeFilter={changeFilter}
+                addTask={addTask}
             />
         </div>
     );

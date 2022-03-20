@@ -1,24 +1,20 @@
 import React, {FC} from 'react';
 import {FilterType} from "../App";
+import {Button} from "./Button";
 
 type FilterButtonType = {
     changeFilter: (value: FilterType) => void
 }
 export const FilterButton: FC<FilterButtonType> = ({changeFilter}) => {
+
+    const onClickFilterAllHandler = () => changeFilter('all')
+    const onClickFilterActiveHandler = () => changeFilter('active')
+    const onClickFilterCompletedHandler = () => changeFilter('completed')
     return (
         <div>
-            <button onClick={() => {
-                changeFilter('all')
-            }}>All
-            </button>
-            <button onClick={() => {
-                changeFilter('active')
-            }}>Active
-            </button>
-            <button onClick={() => {
-                changeFilter('completed')
-            }}>Completed
-            </button>
+            <Button callback={onClickFilterAllHandler} name={'All'}/>
+            <Button callback={onClickFilterActiveHandler} name={'Active'}/>
+            <Button callback={onClickFilterCompletedHandler} name={'Completed'}/>
         </div>
     );
 };
