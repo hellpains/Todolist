@@ -1,6 +1,19 @@
+* {
+    margin: 0;
+}
+
 .App {
-    padding: 30px;
+
     display: flex;
+}
+
+button {
+    outline: none;
+}
+
+.todolistContent {
+    margin-top: 100px;
+    display: grid;
 }
 
 .App > div {
@@ -17,13 +30,13 @@
 
 .is-done {
     opacity: 0.5;
+    text-decoration: line-through;
 }
 
 
-
-
-
-
+.btn-active {
+    background-color: aquamarine;
+}
 
 
 

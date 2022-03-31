@@ -1,15 +1,16 @@
 import React, {FC} from 'react';
-import {FilterType} from "../App";
-import {Button} from "./Button";
+import {FilterType} from "../../App";
+import {Button} from "../UniversalButton/Button";
 
 type FilterButtonType = {
-    changeFilter: (value: FilterType) => void
+    changeFilter: (todolistId: string, value: FilterType) => void
     filter: FilterType
+    todolistId: string
 }
-export const FilterButton: FC<FilterButtonType> = ({changeFilter, filter}) => {
+export const FilterButton: FC<FilterButtonType> = ({changeFilter, todolistId, filter}) => {
 
     const onClickFilterHandler = (value: FilterType) => {
-        changeFilter(value)
+        changeFilter(todolistId, value)
     }
     return (
         <div>

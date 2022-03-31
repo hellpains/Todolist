@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import s from './FilterButton.module.css'
-import {FilterType} from "../App";
+import s from './../FilterButton/FilterButton.module.css'
+import {FilterType} from "../../App";
 
 type ButtonType = {
     name: string
@@ -23,4 +23,3 @@ export const Button: FC<ButtonType> = ({name, callback, filter}) => {
             onClick={onClickButtonHandler}>{name}</button>
     );
 };
-

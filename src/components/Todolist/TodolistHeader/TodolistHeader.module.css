@@ -1,0 +1,10 @@
+div .header {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    background-color: #9e6749;
+    color: #ecddcc;
+    display: inline-block;
+    vertical-align: middle;
+}

@@ -1,30 +1,30 @@
 import React, {FC, useState} from 'react';
-import {FilterType, TaskType} from "../App";
-import {TodolistHeader} from "./TodolistHeader";
-import {Input} from "./Input";
-import {Button} from "./Button";
-import {TasksLIst} from "./TasksLIst";
-import {FilterButton} from "./FilterButton";
+import {FilterType, TaskType} from "../../App";
+import {TodolistHeader} from "./TodolistHeader/TodolistHeader";
+import {Input} from "../Input/Input";
+import {Button} from "../UniversalButton/Button";
+import {TasksLIst} from "../TasksLIst/TasksLIst";
+import {FilterButton} from "../FilterButton/FilterButton";
+import {TodolistTitle} from "./TodolistTitle";
 
 type TodolistType = {
     title: string
     tasks: Array<TaskType>
-    removeTask: (id: string) => void
-    changeFilter: (value: FilterType) => void
-    addTask: (title: string) => void
-    changeStatus: (id: string, isDone: boolean) => void
+    removeTask: (todolistId: string, id: string) => void
+    changeFilter: (todolistId: string, value: FilterType) => void
+    addTask: (todolistId: string, title: string) => void
+    changeStatus: (todolistId: string, id: string, isDone: boolean) => void
     filter: FilterType
+    todolistId: string
+    removeTodolist: (todolistId: string) => void
 }
 
 export const Todolist: FC<TodolistType> = (
     {
-        title,
-        tasks,
-        changeFilter,
-        removeTask,
-        addTask,
-        changeStatus,
-        filter,
+        title, tasks, removeTodolist,
+        changeFilter, removeTask,
+        addTask, changeStatus,
+        filter, todolistId,
     }
 ) => {
     let [task, setTask] = useState('')
@@ -32,7 +32,7 @@ export const Todolist: FC<TodolistType> = (
 
     const onClickAddTask = () => {
         if (task.trim() !== "") {
-            addTask(task.trim())
+            addTask(todolistId, task.trim())
             setTask("")
         } else {
             setError('Title is required')
@@ -41,7 +41,11 @@ export const Todolist: FC<TodolistType> = (
 
     return (
         <div>
-            <TodolistHeader title={title}/>
+            <TodolistTitle
+                todolistId={todolistId}
+                removeTodolist={removeTodolist}
+                title={title}
+            />
             <Input
                 onClickAddTask={onClickAddTask}
                 setError={setError}
@@ -55,16 +59,16 @@ export const Todolist: FC<TodolistType> = (
             />
             {error && <div className={'error-message'}>{error}</div>}
             <TasksLIst
+                todolistId={todolistId}
                 changeStatus={changeStatus}
                 tasks={tasks}
                 removeTask={removeTask}
             />
             <FilterButton
+                todolistId={todolistId}
                 filter={filter}
                 changeFilter={changeFilter}
             />
         </div>
     );
 };
-
-
