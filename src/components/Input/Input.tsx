@@ -1,4 +1,5 @@
 import React, {ChangeEvent, FC, KeyboardEvent} from 'react';
+import {TextField} from "@mui/material";
 
 type InputType = {
     task: string
@@ -31,11 +32,18 @@ export const Input: FC<InputType> = (
     }
 
     return (
-        <input
-            className={error ? 'error' : ''}
+
+        <TextField
+            error={!!error}
+            id="standard-basic" label="name" variant="standard"
             onKeyPress={onKeyPressHandler}
-            value={task}
-            onChange={onChangeInputHandler}
+            value={task} onChange={onChangeInputHandler}
+            helperText={error}
+            style={{marginBottom: '10px'}}
         />
+
+
     );
 };
+
+

@@ -1,11 +1,13 @@
 import React, {FC, useState} from "react";
 import {Input} from "../Input/Input";
-import {Button} from "./Button";
+import {Button, IconButton} from "@mui/material";
+import {MyButton} from "./MyButton";
+import {Add} from "@mui/icons-material";
 
-type AddItemFormPropsType={
-    addItem:(title:string)=>void
+type AddItemFormPropsType = {
+    addItem: (title: string) => void
 }
-export const AddItemForm:FC<AddItemFormPropsType> = (
+export const AddItemForm: FC<AddItemFormPropsType> = (
     {
         addItem
     }
@@ -22,7 +24,7 @@ export const AddItemForm:FC<AddItemFormPropsType> = (
         }
     }
 
-    return(
+    return (
         <div>
             <Input
                 onClickAddTask={onClickAddTask}
@@ -31,11 +33,9 @@ export const AddItemForm:FC<AddItemFormPropsType> = (
                 task={task}
                 setTask={setTask}
             />
-            <Button
-                name={'+'}
-                callback={onClickAddTask}
-            />
-            {error && <div className={'error-message'}>{error}</div>}
+            <IconButton color={"primary"} onClick={onClickAddTask}>
+                <Add/>
+            </IconButton>
         </div>
     )
 }

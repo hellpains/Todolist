@@ -9,7 +9,7 @@ type ButtonType = {
 }
 
 
-export const Button: FC<ButtonType> = ({name, callback, filter}) => {
+export const MyButton: FC<ButtonType> = ({name, callback, filter}) => {
 
     const nameLowerCase = name.toLowerCase()
 

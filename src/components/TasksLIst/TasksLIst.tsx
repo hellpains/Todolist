@@ -1,14 +1,20 @@
 import React, {ChangeEvent, FC} from 'react';
 import {TaskType} from "../../App";
-import {Button} from "../UniversalButton/Button";
 import {EditableSpan} from "../UniversalButton/EditableSpan";
+import {MyButton} from "../UniversalButton/MyButton";
+import {Button, Checkbox, IconButton} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import s from './TaskList.module.css'
+import {Delete} from "@mui/icons-material";
+import {pink} from "@mui/material/colors";
 
+const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 type TasksLIstType = {
     tasks: Array<TaskType>
     removeTask: (todolistId: string, id: string) => void
     changeStatus: (todolistId: string, id: string, isDone: boolean) => void
     todolistId: string
-    updateTaskTitle: (todolistId: string, title: string,taskId:string) => void
+    updateTaskTitle: (todolistId: string, title: string, taskId: string) => void
 }
 export const TasksLIst: FC<TasksLIstType> = (
     {
@@ -19,24 +25,34 @@ export const TasksLIst: FC<TasksLIstType> = (
 ) => {
 
     const removeTaskHandler = (id: string) => removeTask(todolistId, id)
-    const updateTaskTitleHandler = (title:string,taskId:string) => {
-        updateTaskTitle(todolistId,title,taskId)
+    const updateTaskTitleHandler = (title: string, taskId: string) => {
+        updateTaskTitle(todolistId, title, taskId)
     }
     return (
-        <ul>
+        <div>
             {tasks.map(t => {
                 const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
                     changeStatus(todolistId, t.id, event.currentTarget.checked)
                 }
                 return (
-                    <li key={t.id} className={t.isDone === true ? 'is-done' : ''}>
-                        <input onChange={onChangeHandler} type="checkbox" checked={t.isDone}/>
-                        <EditableSpan title={t.title} onChange={(title: string) => updateTaskTitleHandler(title,t.id)}/>
-                        <Button callback={() => removeTaskHandler(t.id)} name={'x'}/>
-                    </li>
+                    <div key={t.id} className={t.isDone === true ? s.is_done : ''}>
+
+                        <Checkbox
+                            {...label} defaultChecked
+                            onChange={onChangeHandler}
+                            checked={t.isDone}
+                        />
+                        <EditableSpan
+                            title={t.title}
+                            onChange={(title: string) => updateTaskTitleHandler(title, t.id)}
+                        />
+                        <IconButton className={s.button} onClick={() => removeTaskHandler(t.id)}>
+                            <Delete/>
+                        </IconButton>
+                    </div>
                 )
             })}
-        </ul>
+        </div>
     );
 };
 

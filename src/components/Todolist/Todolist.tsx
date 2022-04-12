@@ -2,7 +2,7 @@ import React, {FC, useState} from 'react';
 import {FilterType, TaskType} from "../../App";
 import {TodolistHeader} from "./TodolistHeader/TodolistHeader";
 import {Input} from "../Input/Input";
-import {Button} from "../UniversalButton/Button";
+import {MyButton} from "../UniversalButton/MyButton";
 import {TasksLIst} from "../TasksLIst/TasksLIst";
 import {FilterButton} from "../FilterButton/FilterButton";
 import {TodolistTitle} from "./TodolistTitle";
@@ -18,8 +18,8 @@ type TodolistType = {
     filter: FilterType
     todolistId: string
     removeTodolist: (todolistId: string) => void
-    updateTaskTitle:(todolistId:string,title:string,taskId:string)=>void
-    updateTodolistTitle:(todolistId:string,title:string)=>void
+    updateTaskTitle: (todolistId: string, title: string, taskId: string) => void
+    updateTodolistTitle: (todolistId: string, title: string) => void
 }
 
 export const Todolist: FC<TodolistType> = (
@@ -28,7 +28,7 @@ export const Todolist: FC<TodolistType> = (
         tasks, changeFilter,
         removeTask, addTask,
         changeStatus, filter,
-        removeTodolist,updateTaskTitle,
+        removeTodolist, updateTaskTitle,
         updateTodolistTitle
     }
 ) => {
