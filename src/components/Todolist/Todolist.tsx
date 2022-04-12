@@ -6,6 +6,7 @@ import {Button} from "../UniversalButton/Button";
 import {TasksLIst} from "../TasksLIst/TasksLIst";
 import {FilterButton} from "../FilterButton/FilterButton";
 import {TodolistTitle} from "./TodolistTitle";
+import {AddItemForm} from "../UniversalButton/AddItemForm";
 
 type TodolistType = {
     title: string
@@ -17,48 +18,36 @@ type TodolistType = {
     filter: FilterType
     todolistId: string
     removeTodolist: (todolistId: string) => void
+    updateTaskTitle:(todolistId:string,title:string,taskId:string)=>void
+    updateTodolistTitle:(todolistId:string,title:string)=>void
 }
 
 export const Todolist: FC<TodolistType> = (
     {
-        title, tasks, removeTodolist,
-        changeFilter, removeTask,
-        addTask, changeStatus,
-        filter, todolistId,
+        title, todolistId,
+        tasks, changeFilter,
+        removeTask, addTask,
+        changeStatus, filter,
+        removeTodolist,updateTaskTitle,
+        updateTodolistTitle
     }
 ) => {
-    let [task, setTask] = useState('')
-    let [error, setError] = useState('')
-
-    const onClickAddTask = () => {
-        if (task.trim() !== "") {
-            addTask(todolistId, task.trim())
-            setTask("")
-        } else {
-            setError('Title is required')
-        }
+    const addTaskHandler = (title: string) => {
+        addTask(todolistId, title)
     }
+
 
     return (
         <div>
             <TodolistTitle
-                todolistId={todolistId}
-                removeTodolist={removeTodolist}
+                updateTodolistTitle={updateTodolistTitle}
                 title={title}
+                removeTodolist={removeTodolist}
+                todolistId={todolistId}
             />
-            <Input
-                onClickAddTask={onClickAddTask}
-                setError={setError}
-                error={error}
-                task={task}
-                setTask={setTask}
-            />
-            <Button
-                name={'+'}
-                callback={onClickAddTask}
-            />
-            {error && <div className={'error-message'}>{error}</div>}
+            <AddItemForm addItem={addTaskHandler}/>
             <TasksLIst
+                updateTaskTitle={updateTaskTitle}
                 todolistId={todolistId}
                 changeStatus={changeStatus}
                 tasks={tasks}
@@ -72,3 +61,23 @@ export const Todolist: FC<TodolistType> = (
         </div>
     );
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

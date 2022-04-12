@@ -3,28 +3,33 @@ import {FilterType} from "../../App";
 import {Button} from "../UniversalButton/Button";
 
 type FilterButtonType = {
-    changeFilter: (todolistId: string, value: FilterType) => void
+    changeFilter: (todolistId:string,value: FilterType) => void
     filter: FilterType
-    todolistId: string
+    todolistId:string
 }
-export const FilterButton: FC<FilterButtonType> = ({changeFilter, todolistId, filter}) => {
+export const FilterButton: FC<FilterButtonType> = (
+    {
+        changeFilter, filter,
+        todolistId,
+    }
+) => {
 
-    const onClickFilterHandler = (value: FilterType) => {
-        changeFilter(todolistId, value)
+    const onClickFilterHandler = (todolistId:string,value: FilterType) => {
+        changeFilter(todolistId,value)
     }
     return (
         <div>
             <Button
                 filter={filter}
-                callback={() => onClickFilterHandler('all')}
+                callback={() => onClickFilterHandler(todolistId,'all')}
                 name={'All'}/>
             <Button
                 filter={filter}
-                callback={() => onClickFilterHandler('active')}
+                callback={() => onClickFilterHandler(todolistId,'active')}
                 name={'Active'}/>
             <Button
                 filter={filter}
-                callback={() => onClickFilterHandler('completed')}
+                callback={() => onClickFilterHandler(todolistId,'completed')}
                 name={'Completed'}/>
         </div>
     );
