@@ -1,12 +1,9 @@
 import React, {ChangeEvent, FC} from 'react';
 import {TaskType} from "../../App";
 import {EditableSpan} from "../UniversalButton/EditableSpan";
-import {MyButton} from "../UniversalButton/MyButton";
 import {Button, Checkbox, IconButton} from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
 import s from './TaskList.module.css'
 import {Delete} from "@mui/icons-material";
-import {pink} from "@mui/material/colors";
 
 const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 type TasksLIstType = {

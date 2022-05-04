@@ -16,6 +16,9 @@ export type TaskType = {
     title: string
     isDone: boolean
 }
+export type TasksStateType = {
+    [key: string]: Array<TaskType>
+}
 
 function MenuIcon() {
     return null;
@@ -64,6 +67,7 @@ function App() {
         setTasks({...tasks, [todolistId]: tasks[todolistId].map(t => t.id === taskId ? {...t, title} : t)})
     }
 
+
     const changeFilter = (todolistId: string, value: FilterType) => {
         setTodolists(todolists.map(tl => tl.id === todolistId ? {...tl, filter: value} : tl))
     }
@@ -81,7 +85,7 @@ function App() {
     const updateTodolistTitle = (todolistId: string, title: string) => {
         setTodolists(todolists.map(tl => tl.id === todolistId ? {...tl, title} : tl))
     }
-    
+
     return (
         <div className="App">
             <Box sx={{flexGrow: 1}}>

@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import {EditableSpan} from "../UniversalButton/EditableSpan";
-import {MyButton} from "../UniversalButton/MyButton";
 import s from "../TasksLIst/TaskList.module.css";
 import {Delete} from "@mui/icons-material";
 import {IconButton} from "@mui/material";
