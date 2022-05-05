@@ -11,7 +11,9 @@ type ActionTypeTasksReducer =
     | ReturnType<typeof removeTodolistAC>
 
 
-export const tasksReducer = (state: TasksStateType, action: ActionTypeTasksReducer): TasksStateType => {
+const initialState: TasksStateType = {}
+
+export const tasksReducer = (state: TasksStateType = initialState, action: ActionTypeTasksReducer): TasksStateType => {
     switch (action.type) {
         case 'REMOVE-TASK': {
             return {
@@ -49,40 +51,40 @@ export const tasksReducer = (state: TasksStateType, action: ActionTypeTasksReduc
             delete stateCopy[action.id]
             return stateCopy
         default:
-            throw new Error("I don't understand this type")
+            return state
     }
 }
 
-export const removeTaskAC = (taskId: string, todolistId: string) => {
+export const removeTaskAC = (todolistId: string, taskId: string) => {
     return {
         type: 'REMOVE-TASK',
-        taskId,
-        todolistId
+        todolistId,
+        taskId
     } as const
 }
 
-export const addTaskAC = (title: string, todolistId: string) => {
+export const addTaskAC = (todolistId: string, title: string) => {
     return {
         type: 'ADD-TASKS',
-        title,
-        todolistId
+        todolistId,
+        title
     } as const
 }
 
-export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: string) => {
+export const changeTaskStatusAC = (todolistId: string, taskId: string, isDone: boolean) => {
     return {
         type: 'CHANGE-TASKS-STATUS',
+        todolistId,
         taskId,
         isDone,
-        todolistId,
     } as const
 }
 
-export const updateTaskTitleAC = (taskId: string, title: string, todolistId: string) => {
+export const updateTaskTitleAC = (todolistId: string, taskId: string, title: string) => {
     return {
         type: 'CHANGE-TASKS-TITLE',
+        todolistId,
         taskId,
-        title,
-        todolistId
+        title
     } as const
 }

@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC} from 'react';
 import {TaskType} from "../../App";
 import {EditableSpan} from "../UniversalButton/EditableSpan";
-import {Button, Checkbox, IconButton} from "@mui/material";
+import {Checkbox, IconButton} from "@mui/material";
 import s from './TaskList.module.css'
 import {Delete} from "@mui/icons-material";
 
