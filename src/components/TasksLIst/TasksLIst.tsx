@@ -21,6 +21,7 @@ export const TasksLIst: FC<TasksLIstType> = (
     }
 ) => {
 
+
     const removeTaskHandler = (id: string) => removeTask(todolistId, id)
     const updateTaskTitleHandler = (title: string, taskId: string) => {
         updateTaskTitle(todolistId, title, taskId)
