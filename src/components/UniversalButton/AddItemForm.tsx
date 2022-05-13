@@ -1,17 +1,20 @@
 import React, {FC, useState} from "react";
 import {Input} from "../Input/Input";
-import {Button, IconButton} from "@mui/material";
-import {MyButton} from "./MyButton";
+import { IconButton} from "@mui/material";
 import {Add} from "@mui/icons-material";
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
-export const AddItemForm: FC<AddItemFormPropsType> = (
+
+
+export const AddItemForm: FC<AddItemFormPropsType> = React.memo((
     {
         addItem
     }
 ) => {
+
+    console.log('AddItemForm')
     let [task, setTask] = useState('')
     let [error, setError] = useState('')
 
@@ -38,4 +41,4 @@ export const AddItemForm: FC<AddItemFormPropsType> = (
             </IconButton>
         </div>
     )
-}
+})

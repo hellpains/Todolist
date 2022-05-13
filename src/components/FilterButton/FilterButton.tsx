@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useCallback} from 'react';
 import {FilterType} from "../../App";
 import {MyButton} from "../UniversalButton/MyButton";
 import {Button} from "@mui/material";
@@ -16,9 +16,9 @@ export const FilterButton: FC<FilterButtonType> = (
     }
 ) => {
 
-    const onClickFilterHandler = (todolistId: string, value: FilterType) => {
+    const onClickFilterHandler =useCallback( (todolistId: string, value: FilterType) => {
         changeFilter(todolistId, value)
-    }
+    },[changeFilter,todolistId])
     return (
         <div>
 

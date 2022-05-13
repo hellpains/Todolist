@@ -1,9 +1,9 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useCallback, useState} from 'react';
 import {FilterType, TaskType} from "../../App";
 import {TodolistHeader} from "./TodolistHeader/TodolistHeader";
 import {Input} from "../Input/Input";
 import {MyButton} from "../UniversalButton/MyButton";
-import {TasksLIst} from "../TasksLIst/TasksLIst";
+import {TasksList} from "../TasksLIst/TasksList";
 import {FilterButton} from "../FilterButton/FilterButton";
 import {TodolistTitle} from "./TodolistTitle";
 import {AddItemForm} from "../UniversalButton/AddItemForm";
@@ -22,7 +22,7 @@ type TodolistType = {
     updateTodolistTitle: (todolistId: string, title: string) => void
 }
 
-export const Todolist: FC<TodolistType> = (
+export const Todolist: FC<TodolistType> = React.memo((
     {
         title, todolistId,
         tasks, changeFilter,
@@ -32,10 +32,19 @@ export const Todolist: FC<TodolistType> = (
         updateTodolistTitle
     }
 ) => {
-    const addTaskHandler = (title: string) => {
-        addTask(todolistId, title)
-    }
+    console.log('Todolist')
 
+    const addTaskHandler = useCallback((title: string) => {
+        addTask(todolistId, title)
+    }, [addTask,todolistId])
+
+    let filteredTask = tasks
+    if (filter === 'active') {
+        filteredTask = filteredTask.filter(t => t.isDone === false)
+    }
+    if (filter === 'completed') {
+        filteredTask = filteredTask.filter(t => t.isDone === true)
+    }
 
     return (
         <div>
@@ -46,7 +55,7 @@ export const Todolist: FC<TodolistType> = (
                 todolistId={todolistId}
             />
             <AddItemForm addItem={addTaskHandler}/>
-            <TasksLIst
+            <TasksList
                 updateTaskTitle={updateTaskTitle}
                 todolistId={todolistId}
                 changeStatus={changeStatus}
@@ -60,7 +69,7 @@ export const Todolist: FC<TodolistType> = (
             />
         </div>
     );
-};
+})
 
 
 

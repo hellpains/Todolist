@@ -21,11 +21,12 @@ export const Input: FC<InputType> = (
 
     const onChangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setTask(event.currentTarget.value)
-        console.log(event.currentTarget.value)
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError('')
+        if (error !== null) {
+            setError('')
+        }
         if (e.key === 'Enter') {
             onClickAddTask()
         }
