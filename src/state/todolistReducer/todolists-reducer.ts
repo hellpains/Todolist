@@ -1,4 +1,4 @@
-import {FilterType, TodolistType} from "../../App";
+import {FilterType, TodolistType} from "../../components/App/App";
 import {v1} from "uuid";
 
 type ActionTypeTodolistsReducer =

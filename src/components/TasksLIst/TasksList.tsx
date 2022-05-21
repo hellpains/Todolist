@@ -1,5 +1,5 @@
 import React, { FC} from 'react';
-import {TaskType} from "../../App";
+import {TaskType} from "../App/App";
 import {Task} from "./Task/Task";
 
 

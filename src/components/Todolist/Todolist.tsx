@@ -1,12 +1,12 @@
 import React, {FC, useCallback, useState} from 'react';
-import {FilterType, TaskType} from "../../App";
+import {FilterType, TaskType} from "../App/App";
 import {TodolistHeader} from "./TodolistHeader/TodolistHeader";
 import {Input} from "../Input/Input";
 import {MyButton} from "../UniversalButton/MyButton";
 import {TasksList} from "../TasksLIst/TasksList";
 import {FilterButton} from "../FilterButton/FilterButton";
 import {TodolistTitle} from "./TodolistTitle";
-import {AddItemForm} from "../UniversalButton/AddItemForm";
+import {AddItemForm} from "../UniversalButton/AddItemForm/AddItemForm";
 
 type TodolistType = {
     title: string
@@ -59,7 +59,7 @@ export const Todolist: FC<TodolistType> = React.memo((
                 updateTaskTitle={updateTaskTitle}
                 todolistId={todolistId}
                 changeStatus={changeStatus}
-                tasks={tasks}
+                tasks={filteredTask}
                 removeTask={removeTask}
             />
             <FilterButton

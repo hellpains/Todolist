@@ -1,9 +1,9 @@
 import React, {ChangeEvent, useCallback} from 'react';
 import s from "../TaskList.module.css";
 import {Checkbox, IconButton} from "@mui/material";
-import {EditableSpan} from "../../UniversalButton/EditableSpan";
+import {EditableSpan} from "../../UniversalButton/EditableSpan/EditableSpan";
 import {Delete} from "@mui/icons-material";
-import {TaskType} from "../../../App";
+import {TaskType} from "../../App/App";
 
 const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 

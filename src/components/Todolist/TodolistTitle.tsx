@@ -1,5 +1,5 @@
 import React, {FC, useCallback} from 'react';
-import {EditableSpan} from "../UniversalButton/EditableSpan";
+import {EditableSpan} from "../UniversalButton/EditableSpan/EditableSpan";
 import s from "../TasksLIst/TaskList.module.css";
 import {Delete} from "@mui/icons-material";
 import {IconButton} from "@mui/material";
