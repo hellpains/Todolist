@@ -3,22 +3,22 @@ import s from "../TaskList.module.css";
 import {Checkbox, IconButton} from "@mui/material";
 import {EditableSpan} from "../../UniversalButton/EditableSpan/EditableSpan";
 import {Delete} from "@mui/icons-material";
-import {TaskType} from "../../App/App";
+import {TaskStatuses, TaskType} from "../../../api/todolists-api";
 
 const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
-type PropsType={
-    task:TaskType
+type PropsType = {
+    task: TaskType
     removeTask: (todolistId: string, id: string) => void
-    changeStatus: (todolistId: string, id: string, isDone: boolean) => void
+    changeStatus: (todolistId: string, id: string, status: TaskStatuses) => void
     todolistId: string
     updateTaskTitle: (todolistId: string, title: string, taskId: string) => void
 }
 
-export const Task:React.FC<PropsType> =React.memo( (
+export const Task: React.FC<PropsType> = React.memo((
     {
-        task,removeTask,
-        changeStatus,todolistId,updateTaskTitle
+        task, removeTask,
+        changeStatus, todolistId, updateTaskTitle
     }
 ) => {
     const removeTaskHandler = (id: string) => {
@@ -26,21 +26,21 @@ export const Task:React.FC<PropsType> =React.memo( (
     }
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        changeStatus(todolistId, task.id, event.currentTarget.checked)
+        let newIsDoneValue = event.currentTarget.checked? TaskStatuses.Completed : TaskStatuses.New
+        changeStatus(todolistId, task.id,newIsDoneValue)
     }
 
     const updateTaskTitleHandler = useCallback((title: string, taskId: string) => {
         updateTaskTitle(todolistId, title, taskId)
-    }, [todolistId, updateTaskTitle,task.title])
-
+    }, [todolistId, updateTaskTitle, task.title])
 
 
     return (
-        <div key={task.id} className={task.isDone === true ? s.is_done : ''}>
+        <div key={task.id} className={task.status === TaskStatuses.Completed ? s.is_done : ''}>
             <Checkbox
                 {...label} defaultChecked
                 onChange={onChangeHandler}
-                checked={task.isDone}
+                checked={task.status ===TaskStatuses.Completed}
             />
             <EditableSpan
                 title={task.title}

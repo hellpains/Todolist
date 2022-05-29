@@ -1,12 +1,12 @@
 import React, { FC} from 'react';
-import {TaskType} from "../App/App";
 import {Task} from "./Task/Task";
+import {TaskStatuses, TaskType} from "../../api/todolists-api";
 
 
 type TasksListType = {
     tasks: Array<TaskType>
     removeTask: (todolistId: string, id: string) => void
-    changeStatus: (todolistId: string, id: string, isDone: boolean) => void
+    changeStatus: (todolistId: string, id: string, status:TaskStatuses) => void
     todolistId: string
     updateTaskTitle: (todolistId: string, title: string, taskId: string) => void
 }
