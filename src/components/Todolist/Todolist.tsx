@@ -1,10 +1,12 @@
-import React, {FC, useCallback, } from 'react';
+import React, {FC, useCallback, useEffect,} from 'react';
 import {TasksList} from "../TasksLIst/TasksList";
 import {FilterButton} from "../FilterButton/FilterButton";
 import {TodolistTitle} from "./TodolistTitle";
 import {AddItemForm} from "../UniversalButton/AddItemForm/AddItemForm";
 import {TaskStatuses, TaskType} from "../../api/todolists-api";
-import {FilterType} from "../../state/todolistReducer/todolists-reducer";
+import {fetchTodolistsTC, FilterType} from "../../state/todolistReducer/todolists-reducer";
+import {useAppDispatch} from "../../state/store";
+import {fetchTasksTC} from "../../state/tasksReducer/tasks-reducer";
 
 type TodolistType = {
     title: string
@@ -30,7 +32,11 @@ export const Todolist: FC<TodolistType> = React.memo((
         updateTodolistTitle
     }
 ) => {
-    console.log('Todolist')
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(fetchTasksTC(todolistId))
+    }, [])
 
     const addTaskHandler = useCallback((title: string) => {
         addTask(todolistId, title)
