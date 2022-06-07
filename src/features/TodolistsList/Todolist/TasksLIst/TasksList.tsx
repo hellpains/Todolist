@@ -1,6 +1,6 @@
 import React, { FC} from 'react';
 import {Task} from "./Task/Task";
-import {TaskStatuses, TaskType} from "../../api/todolists-api";
+import {TaskStatuses, TaskType} from "../../../../api/todolists-api";
 
 
 type TasksListType = {

@@ -1,12 +1,12 @@
 import React, {FC, useCallback, useEffect,} from 'react';
-import {TasksList} from "../TasksLIst/TasksList";
-import {FilterButton} from "../FilterButton/FilterButton";
+import {TasksList} from "./TasksLIst/TasksList";
+import {FilterButton} from "../../../components/FilterButton/FilterButton";
 import {TodolistTitle} from "./TodolistTitle";
-import {AddItemForm} from "../UniversalButton/AddItemForm/AddItemForm";
-import {TaskStatuses, TaskType} from "../../api/todolists-api";
-import {fetchTodolistsTC, FilterType} from "../../state/todolistReducer/todolists-reducer";
-import {useAppDispatch} from "../../state/store";
-import {fetchTasksTC} from "../../state/tasksReducer/tasks-reducer";
+import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
+import {TaskStatuses, TaskType} from "../../../api/todolists-api";
+import {fetchTodolistsTC, FilterType} from "../todolists-reducer";
+import {useAppDispatch} from "../../../app/store";
+import {fetchTasksTC} from "../tasks-reducer";
 
 type TodolistType = {
     title: string

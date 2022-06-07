@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import s from './../FilterButton/FilterButton.module.css'
-import {FilterType} from "../../state/todolistReducer/todolists-reducer";
+import {FilterType} from "../../features/TodolistsList/todolists-reducer";
 
 type ButtonType = {
     name: string

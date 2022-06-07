@@ -1,7 +1,7 @@
 import React, {FC, useCallback} from 'react';
 import {Button} from "@mui/material";
 import s from "./FilterButton.module.css";
-import {FilterType} from "../../state/todolistReducer/todolists-reducer";
+import {FilterType} from "../../features/TodolistsList/todolists-reducer";
 
 
 type FilterButtonType = {

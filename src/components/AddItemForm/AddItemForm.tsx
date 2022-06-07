@@ -1,5 +1,5 @@
 import React, {FC, useState} from "react";
-import {Input} from "../../Input/Input";
+import {Input} from "../Input/Input";
 import { IconButton} from "@mui/material";
 import {Add} from "@mui/icons-material";
 

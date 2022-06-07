@@ -1,32 +1,21 @@
-import React, {useCallback, useEffect} from 'react';
-import '../../../App.css';
-import {Todolist} from "../../Todolist/Todolist";
-import {AddItemForm} from "../../UniversalButton/AddItemForm/AddItemForm";
-import {AppBar, Box, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import React, {useCallback, useEffect} from "react";
+import {AppRootStateType, useAppDispatch} from "../../app/store";
+import {useSelector} from "react-redux";
 import {
-    changeTodolistFilterAC,
-    changeTodolistTitleTC,
-    createTodolistTC,
+    changeTodolistFilterAC, changeTodolistTitleTC, createTodolistTC,
     fetchTodolistsTC,
     FilterType,
     removeTodolistTC,
-    TodolistDomainType,
-} from "../../../state/todolistReducer/todolists-reducer";
-import {createTaskTC, deleteTaskTC, updateTaskTC,} from "../../../state/tasksReducer/tasks-reducer";
-import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "../../../state/store";
-import {TaskStatuses, TaskType} from "../../../api/todolists-api";
+    TodolistDomainType
+} from "./todolists-reducer";
+import {createTaskTC, deleteTaskTC, updateTaskTC} from "./tasks-reducer";
+import {TaskStatuses} from "../../api/todolists-api";
+import {Grid, Paper} from "@mui/material";
+import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
+import {Todolist} from "./Todolist/Todolist";
+import {TasksStateType} from "../../app/App";
 
-
-export type TasksStateType = {
-    [key: string]: Array<TaskType>
-}
-
-function MenuIcon() {
-    return null;
-}
-
-export const AppWithRedux = () => {
+export const TodolistsList: React.FC = () => {
     const dispatch = useAppDispatch();
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
@@ -46,7 +35,7 @@ export const AppWithRedux = () => {
 
     const changeStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
 
-        dispatch(updateTaskTC(todolistId,taskId,{status}))
+        dispatch(updateTaskTC(todolistId, taskId, {status}))
     }, [dispatch])
 
     const updateTaskTitle = useCallback((todolistId: string, title: string, taskId: string) => {
@@ -71,32 +60,13 @@ export const AppWithRedux = () => {
 
 
     return (
-        <div className="App">
-            <Box sx={{flexGrow: 1}}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="menu"
-                            sx={{mr: 2}}
-                        >
-                            <MenuIcon/>
-                        </IconButton>
-                        <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-                            News
-                        </Typography>
-                        <Button color="inherit">Login</Button>
-                    </Toolbar>
-                </AppBar>
-            </Box>
-            <Container fixed>
-                <Grid container style={{padding: '20px'}}>
-                    <AddItemForm addItem={addTodolist}/>
-                </Grid>
-                <Grid container spacing={4}>
-                    {todolists.map(tl => {
+        <>
+            <Grid container style={{padding: '20px'}}>
+                <AddItemForm addItem={addTodolist}/>
+            </Grid>
+            <Grid container spacing={4}>
+                {
+                    todolists.map(tl => {
                         let filteredTask = tasks[tl.id]
                         return (
                             <Grid key={tl.id} item>
@@ -119,11 +89,7 @@ export const AppWithRedux = () => {
                             </Grid>
                         )
                     })}
-                </Grid>
-            </Container>
-
-
-        </div>
-    );
-}
-
+            </Grid>
+        </>
+    )
+};
