@@ -2,13 +2,13 @@ import React, {useCallback, useEffect} from "react";
 import {AppRootStateType, useAppDispatch} from "../../app/store";
 import {useSelector} from "react-redux";
 import {
-    changeTodolistFilterAC, changeTodolistTitleTC, createTodolistTC,
+    changeTodolistFilterAC, changeTodolistTitleTC, addTodolistTC,
     fetchTodolistsTC,
     FilterType,
     removeTodolistTC,
     TodolistDomainType
 } from "./todolists-reducer";
-import {createTaskTC, deleteTaskTC, updateTaskTC} from "./tasks-reducer";
+import {addTaskTC, deleteTaskTC, updateTaskTC} from "./tasks-reducer";
 import {TaskStatuses} from "../../api/todolists-api";
 import {Grid, Paper} from "@mui/material";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
@@ -30,7 +30,7 @@ export const TodolistsList: React.FC = () => {
     }, [dispatch])
 
     const addTask = useCallback((todolistId: string, title: string) => {
-        dispatch(createTaskTC(todolistId, title))
+        dispatch(addTaskTC(todolistId, title))
     }, [dispatch])
 
     const changeStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
@@ -55,7 +55,7 @@ export const TodolistsList: React.FC = () => {
     }, [dispatch])
 
     const addTodolist = useCallback((title: string) => {
-        dispatch(createTodolistTC(title))
+        dispatch(addTodolistTC(title))
     }, [dispatch])
 
 
