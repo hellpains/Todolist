@@ -4,18 +4,18 @@ import {AppBar, Box, Button, Container, IconButton, LinearProgress, Toolbar, Typ
 import {TaskType} from "../api/todolists-api";
 import {TodolistsList} from "../features/TodolistsList/TodolistList";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
-import {useSelector} from "react-redux";
-import {RequestStatusType} from "./app-reducer";
-import {AppRootStateType} from "./store";
-
+import {useAppSelector} from "./store";
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
+type PropsType = {
+    demo?: boolean
+}
 
+export const App= (props:PropsType) => {
+    const status = useAppSelector(state => state.app.status)
 
-export const App = () => {
-    const status =useSelector<AppRootStateType,RequestStatusType>(state => state.app.status)
     return (
         <div className="App">
             <Box sx={{flexGrow: 1}}>
@@ -28,7 +28,6 @@ export const App = () => {
                             aria-label="menu"
                             sx={{mr: 2}}
                         >
-
                         </IconButton>
                         <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                             News
@@ -38,9 +37,8 @@ export const App = () => {
                     {status === 'loading' && <LinearProgress color="secondary"/>}
                 </AppBar>
             </Box>
-
             <Container fixed>
-                <TodolistsList/>
+                <TodolistsList demo={props.demo}/>
             </Container>
 
             <ErrorSnackbar/>

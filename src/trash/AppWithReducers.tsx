@@ -37,18 +37,23 @@ export const AppWithReducers = () => {
     let [tasks, dispatchToTasksReducer] = useReducer(tasksReducer, {
         [todolistId1]: [
             {id: v1(), title: 'HTML/CSS', status: TaskStatuses.Completed,todoListId:todolistId1,
-                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:''},
+                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:'',
+                entityStatus:'idle',},
             {id: v1(), title: 'JS', status:TaskStatuses.Completed,todoListId:todolistId1,
-                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:''},
+                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:'',
+                entityStatus:'idle',},
             {id: v1(), title: 'React', status:TaskStatuses.New,todoListId:todolistId1,
-                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:''},
+                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:'',
+                entityStatus:'idle',},
 
         ],
         [todolistId2]: [
             {id: v1(), title: 'Mild', status:TaskStatuses.Completed,todoListId:todolistId2,
-                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:''},
+                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:'',
+                entityStatus:'idle',},
             {id: v1(), title: 'Book', status:TaskStatuses.New,todoListId:todolistId2,
-                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:''},
+                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:'',
+                entityStatus:'idle',},
         ],
     })
 
@@ -66,7 +71,8 @@ export const AppWithReducers = () => {
             description: '',
             priority: 0,
             startDate: '',
-            id: 'id exists'
+            id: 'id exists',
+            entityStatus:'idle',
         }))
     }
     const changeStatus = (todolistId: string, taskId: string, status:TaskStatuses) => {
@@ -135,18 +141,16 @@ export const AppWithReducers = () => {
                                 <Grid key={tl.id} item>
                                     <Paper style={{padding: '10px'}}>
                                         <Todolist
+                                            todolist={tl}
                                             updateTodolistTitle={updateTodolistTitle}
                                             updateTaskTitle={updateTaskTitle}
                                             removeTodolist={removeTodolist}
                                             key={tl.id}
-                                            todolistId={tl.id}
-                                            title={tl.title}
                                             tasks={filteredTask}
                                             removeTask={removeTask}
                                             changeFilter={changeFilter}
                                             addTask={addTask}
                                             changeStatus={changeStatus}
-                                            filter={tl.filter}
                                         />
                                     </Paper>
                                 </Grid>

@@ -8,6 +8,7 @@ import {TaskStatuses, TaskType} from "../../../../../api/todolists-api";
 const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
 type PropsType = {
+
     task: TaskType
     removeTask: (todolistId: string, id: string) => void
     changeStatus: (todolistId: string, id: string, status: TaskStatuses) => void
@@ -36,8 +37,9 @@ export const Task: React.FC<PropsType> = React.memo((
 
 
     return (
-        <div key={task.id} className={task.status === TaskStatuses.Completed ? s.is_done : ''}>
+        <div key={task.id} className={task.status === TaskStatuses.Completed ? s.is_done : ''} >
             <Checkbox
+                disabled={task.entityStatus==='loading'}
                 {...label} defaultChecked
                 onChange={onChangeHandler}
                 checked={task.status ===TaskStatuses.Completed}
@@ -46,7 +48,7 @@ export const Task: React.FC<PropsType> = React.memo((
                 title={task.title}
                 onChange={(title: string) => updateTaskTitleHandler(title, task.id)}
             />
-            <IconButton className={s.button} onClick={() => removeTaskHandler(task.id)}>
+            <IconButton className={s.button} onClick={() => removeTaskHandler(task.id)} disabled={task.entityStatus==='loading'}>
                 <Delete/>
             </IconButton>
         </div>

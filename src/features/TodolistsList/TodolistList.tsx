@@ -15,12 +15,23 @@ import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
 import {Todolist} from "./Todolist/Todolist";
 import {TasksStateType} from "../../app/App";
 
-export const TodolistsList: React.FC = () => {
+type PropsType={
+    demo?: boolean
+}
+
+export const TodolistsList: React.FC<PropsType> = (
+    {
+        demo=false,
+    }
+) => {
     const dispatch = useAppDispatch();
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
 
     useEffect(() => {
+        if(demo){
+            return
+        }
         dispatch(fetchTodolistsTC())
     }, [])
 
@@ -60,6 +71,7 @@ export const TodolistsList: React.FC = () => {
 
 
     return (
+
         <>
             <Grid container style={{padding: '20px'}}>
                 <AddItemForm addItem={addTodolist}/>
@@ -72,18 +84,17 @@ export const TodolistsList: React.FC = () => {
                             <Grid key={tl.id} item>
                                 <Paper style={{padding: '10px'}}>
                                     <Todolist
+                                        todolist={tl}
                                         updateTodolistTitle={updateTodolistTitle}
                                         updateTaskTitle={updateTaskTitle}
                                         removeTodolist={removeTodolist}
                                         key={tl.id}
-                                        todolistId={tl.id}
-                                        title={tl.title}
                                         tasks={filteredTask}
                                         removeTask={removeTask}
                                         changeFilter={changeFilter}
                                         addTask={addTask}
                                         changeStatus={changeStatus}
-                                        filter={tl.filter}
+                                        demo={demo}
                                     />
                                 </Paper>
                             </Grid>

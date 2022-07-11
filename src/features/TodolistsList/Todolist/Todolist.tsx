@@ -4,71 +4,74 @@ import {FilterButton} from "../../../components/FilterButton/FilterButton";
 import {TodolistTitle} from "./TodolistTitle";
 import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
 import {TaskStatuses, TaskType} from "../../../api/todolists-api";
-import {fetchTodolistsTC, FilterType} from "../todolists-reducer";
+import { FilterType, TodolistDomainType} from "../todolists-reducer";
 import {useAppDispatch} from "../../../app/store";
 import {fetchTasksTC} from "../tasks-reducer";
 
 type TodolistType = {
-    title: string
+    todolist:TodolistDomainType
     tasks: Array<TaskType>
     removeTask: (todolistId: string, id: string) => void
     changeFilter: (todolistId: string, value: FilterType) => void
     addTask: (todolistId: string, title: string) => void
-    changeStatus: (todolistId: string, id: string, status:TaskStatuses) => void
-    filter: FilterType
-    todolistId: string
+    changeStatus: (todolistId: string, id: string, status: TaskStatuses) => void
     removeTodolist: (todolistId: string) => void
     updateTaskTitle: (todolistId: string, title: string, taskId: string) => void
     updateTodolistTitle: (todolistId: string, title: string) => void
+    demo?: boolean
 }
 
 export const Todolist: FC<TodolistType> = React.memo((
     {
-        title, todolistId,
+        todolist,
         tasks, changeFilter,
         removeTask, addTask,
-        changeStatus, filter,
+        changeStatus,
         removeTodolist, updateTaskTitle,
-        updateTodolistTitle
+        updateTodolistTitle, demo = false
     }
 ) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(fetchTasksTC(todolistId))
+        if (demo) {
+            return
+        }
+        dispatch(fetchTasksTC(todolist.id))
+
     }, [])
 
     const addTaskHandler = useCallback((title: string) => {
-        addTask(todolistId, title)
-    }, [addTask,todolistId])
+        addTask(todolist.id, title)
+    }, [addTask, todolist.id])
 
     let filteredTask = tasks
-    if (filter === 'active') {
+    if (todolist.filter === 'active') {
         filteredTask = filteredTask.filter(t => t.status === TaskStatuses.New)
     }
-    if (filter === 'completed') {
+    if( todolist.filter === 'completed') {
         filteredTask = filteredTask.filter(t => t.status === TaskStatuses.Completed)
     }
 
     return (
         <div>
             <TodolistTitle
+                todolist={todolist}
                 updateTodolistTitle={updateTodolistTitle}
-                title={title}
                 removeTodolist={removeTodolist}
-                todolistId={todolistId}
             />
-            <AddItemForm addItem={addTaskHandler}/>
+            <AddItemForm addItem={addTaskHandler} disabled={todolist.entityStatus==="loading"}/>
             <TasksList
                 updateTaskTitle={updateTaskTitle}
-                todolistId={todolistId}
+                todolistId={todolist.id}
                 changeStatus={changeStatus}
                 tasks={filteredTask}
                 removeTask={removeTask}
             />
             <FilterButton
-                todolistId={todolistId}
-                filter={filter}
+                disabled={todolist.entityStatus==="loading"}
+                todolistId={todolist.id}
+                filter={todolist.filter}
                 changeFilter={changeFilter}
             />
         </div>

@@ -2,6 +2,7 @@ import React, {ChangeEvent, FC, KeyboardEvent} from 'react';
 import {TextField} from "@mui/material";
 
 type InputType = {
+    disabled?: boolean
     task: string
     setTask: (task: string) => void
     error: string
@@ -11,7 +12,7 @@ type InputType = {
 
 export const Input: FC<InputType> = (
     {
-        setTask,
+        setTask,disabled,
         task,
         error,
         onClickAddTask,
@@ -35,6 +36,7 @@ export const Input: FC<InputType> = (
     return (
 
         <TextField
+            disabled={disabled}
             error={!!error}
             id="standard-basic" label="name" variant="standard"
             onKeyPress={onKeyPressHandler}

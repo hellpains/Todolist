@@ -21,25 +21,40 @@ export function App() {
     let todolistId2 = v1()
 
     let [todolists, setTodolists] = useState<Array<TodolistDomainType>>([
-        {id: todolistId1, title: 'What to learn', filter: 'all', addedDate: '', order: 0,entityStatus:'idle'},
-        {id: todolistId2, title: 'What to learn', filter: 'all', addedDate: '', order: 0,entityStatus:'idle'},
+        {id: todolistId1, title: 'What to learn', filter: 'all', addedDate: '', order: 0, entityStatus: 'idle'},
+        {id: todolistId2, title: 'What to learn', filter: 'all', addedDate: '', order: 0, entityStatus: 'idle'},
     ])
 
     let [tasks, setTasks] = useState<TasksStateType>({
         [todolistId1]: [
-            {id: v1(), title: 'HTML/CSS', status: TaskStatuses.Completed,todoListId:todolistId1,
-                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:''},
-            {id: v1(), title: 'JS', status:TaskStatuses.Completed,todoListId:todolistId1,
-                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:''},
-            {id: v1(), title: 'React', status:TaskStatuses.New,todoListId:todolistId1,
-                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:''},
+            {
+                id: v1(), title: 'HTML/CSS', status: TaskStatuses.Completed, todoListId: todolistId1,
+                startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low, description: '',
+                entityStatus:'idle',
+            },
+            {
+                id: v1(), title: 'JS', status: TaskStatuses.Completed, todoListId: todolistId1,
+                startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low, description: '',
+                entityStatus:'idle',
+            },
+            {
+                id: v1(), title: 'React', status: TaskStatuses.New, todoListId: todolistId1,
+                startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low, description: '',
+                entityStatus: 'idle',
+            },
 
         ],
         [todolistId2]: [
-            {id: v1(), title: 'Mild', status:TaskStatuses.Completed,todoListId:todolistId2,
-                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:''},
-            {id: v1(), title: 'Book', status:TaskStatuses.New,todoListId:todolistId2,
-                startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:''},
+            {
+                id: v1(), title: 'Mild', status: TaskStatuses.Completed, todoListId: todolistId2,
+                startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low, description: '',
+                entityStatus:'idle',
+            },
+            {
+                id: v1(), title: 'Book', status: TaskStatuses.New, todoListId: todolistId2,
+                startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low, description: '',
+                entityStatus:'idle',
+            },
         ],
     })
 
@@ -48,12 +63,16 @@ export function App() {
     }
 
     const addTask = (todolistId: string, title: string) => {
-        let newTask = {id: v1(), title, status:TaskStatuses.New,todoListId:todolistId,
-            startDate:'', deadline:'',addedDate:'',order:0,priority:TaskPriorities.Low,description:''}
+        let newTask = {
+            id: v1(), title, status: TaskStatuses.New, todoListId: todolistId,
+            startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low, description: '',
+            entityStatus:'idle'
+        }
+        // @ts-ignore
         setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
     }
 
-    const changeStatus = (todolistId: string, id: string,status:TaskStatuses) => {
+    const changeStatus = (todolistId: string, id: string, status: TaskStatuses) => {
         setTasks(
             {
                 ...tasks,
@@ -76,7 +95,7 @@ export function App() {
 
     const addTodolistHandler = (title: string) => {
         let newId = v1()
-        setTodolists([{id: newId, title, filter: 'all',addedDate:'',order:0,entityStatus:'idle'}, ...todolists])
+        setTodolists([{id: newId, title, filter: 'all', addedDate: '', order: 0, entityStatus: 'idle'}, ...todolists])
         setTasks({...tasks, [newId]: []})
     }
 
@@ -123,18 +142,16 @@ export function App() {
                                 <Grid item>
                                     <Paper style={{padding: '10px'}}>
                                         <Todolist
+                                            todolist={tl}
                                             updateTodolistTitle={updateTodolistTitle}
                                             updateTaskTitle={updateTaskTitle}
                                             removeTodolist={removeTodolist}
                                             key={tl.id}
-                                            todolistId={tl.id}
-                                            title={tl.title}
                                             tasks={filteredTask}
                                             removeTask={removeTask}
                                             changeFilter={changeFilter}
                                             addTask={addTask}
                                             changeStatus={changeStatus}
-                                            filter={tl.filter}
                                         />
                                     </Paper>
                                 </Grid>

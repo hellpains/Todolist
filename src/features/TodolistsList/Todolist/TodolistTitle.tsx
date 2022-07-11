@@ -3,17 +3,17 @@ import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import s from "./TasksLIst/TaskList.module.css";
 import {Delete} from "@mui/icons-material";
 import {IconButton} from "@mui/material";
+import {TodolistDomainType} from "../todolists-reducer";
 
 type TodolistHeaderType = {
-    title: string
+    todolist:TodolistDomainType
     removeTodolist: (todolistId: string) => void
-    todolistId: string
     updateTodolistTitle: (todolistId: string, title: string) => void
 }
 export const TodolistTitle: FC<TodolistHeaderType> = React.memo((
     {
-        title, removeTodolist,
-        todolistId, updateTodolistTitle
+         removeTodolist,todolist,
+        updateTodolistTitle
     }
 ) => {
     const onClickHandler =useCallback( (todolistId: string) => {
@@ -23,13 +23,13 @@ export const TodolistTitle: FC<TodolistHeaderType> = React.memo((
     
 
     const updateTodolistTitleHandler = useCallback ( (newTitle: string) => {
-        updateTodolistTitle(todolistId, newTitle)
-    },[todolistId,title])
+        updateTodolistTitle(todolist.id, newTitle)
+    },[todolist.id,todolist.title])
 
     return (
         <div className={s.todolistTitleBlock}>
-            <h3><EditableSpan title={title} onChange={(title: string) => updateTodolistTitleHandler(title)}/>
-                <IconButton className={s.button} onClick={() => onClickHandler(todolistId)}>
+            <h3><EditableSpan title={todolist.title} onChange={(title: string) => updateTodolistTitleHandler(title)}/>
+                <IconButton className={s.button} onClick={() => onClickHandler(todolist.id)} disabled={todolist.entityStatus==="loading"}>
                     <Delete/>
                 </IconButton>
             </h3>

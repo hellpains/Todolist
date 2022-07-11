@@ -10,6 +10,6 @@ export default {
 
 
 export const AddBaseExample = (props:any)=>{
-    return <App/>
+    return <App demo={true}/>
 
 }
