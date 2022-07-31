@@ -6,7 +6,7 @@ import {
 } from "./todolists-reducer";
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../../api/todolists-api";
 import {Dispatch} from "redux";
-import {AppActionsType, AppRootStateType, AppThunk} from "../../app/store";
+import {AppRootActionsType, AppRootStateType, AppThunk} from "../../app/store";
 import {
     setAppError,
     setErrorActionType,

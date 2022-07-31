@@ -1,5 +1,6 @@
 import axios from "axios";
 import {RequestStatusType} from "../app/app-reducer";
+import {inputClasses} from "@mui/material";
 
 export const todolistsAPI = {
     getTodolists() {
@@ -28,6 +29,23 @@ export const todolistsAPI = {
     },
 }
 
+export type LoginParamsType = {
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha?: string,
+}
+export const authAPI = {
+    login(data: LoginParamsType) {
+        return instance.post<ResponseType<{ userId?: number }>>('auth/login',data)
+    },
+    logout() {
+        return instance.delete<ResponseType>('auth/login')
+    },
+    me(){
+        return instance.get<ResponseType<{id:number,email:string,login:string}>>('auth/me')
+    }
+}
 
 // types
 export type TodolistType = {
@@ -42,12 +60,14 @@ export type ResponseType<D = {}> = {
     fieldsErrors: Array<string>
     data: D
 }
+
 export enum TaskStatuses {
     New = 0,
     InProgress = 1,
     Completed = 2,
     Draft = 3,
 }
+
 export enum TaskPriorities {
     Low = 0,
     Middle = 1,
@@ -55,6 +75,7 @@ export enum TaskPriorities {
     Urgently = 3,
     Later = 4,
 }
+
 export type TaskType = {
     description: string
     title: string

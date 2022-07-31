@@ -1,6 +1,6 @@
 import {todolistsAPI, TodolistType} from "../../api/todolists-api";
 import {Dispatch} from "redux";
-import {AppActionsType, AppThunk} from "../../app/store";
+import {AppRootActionsType, AppThunk} from "../../app/store";
 import {RequestStatusType, setErrorActionType, setAppStatus, setStatusActionType} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
@@ -52,6 +52,9 @@ export const fetchTodolistsTC = (): AppThunk => (dispatch) => {
             dispatch(setTodolistsAC(res.data))
             dispatch(setAppStatus('succeeded'))
         })
+        .catch(error=>{
+            handleServerNetworkError(error, dispatch)
+        })
 }
 
 export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch) => {
@@ -102,6 +105,7 @@ export const changeTodolistTitleTC = (todolistId: string, title: string): AppThu
             handleServerNetworkError(error, dispatch)
         })
 }
+
 
 // types
 export type TodolistsActionsType =
